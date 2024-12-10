@@ -1,0 +1,32 @@
+# fly.toml app configuration file generated for k9-bot on 2024-10-18T19:17:09-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'k9-bot'
+primary_region = 'gru'
+
+# .\gradlew.bat clean build shadowJar ; docker build -t joaovseidel/k9-bot:main . ; docker push joaovseidel/k9-bot:main ; fly deploy
+[build]
+image = 'docker.io/joaovseidel/k9-bot:main'
+
+[env]
+# DISCORD_TOKEN = 'xxx'
+# MONGO_URI = 'xxx'
+# OPENAI_API_KEY = 'xxx'
+K9_CHAT_CHANNEL_ID = '1298050620787261490'
+K9_COMMANDS_CHANNEL_ID = '1296985557657976924'
+K9_AKINATOR_CHANNEL_ID = '1299846035341836401'
+K9_DIGIMON_CHANNEL_ID = '1302375762103369808'
+
+[http_service]
+internal_port = 8080
+force_https = true
+auto_stop_machines = 'stop'
+auto_start_machines = true
+min_machines_running = 1
+processes = ['app']
+
+[[vm]]
+size = 'shared-cpu-1x'
+memory = '512mb'
